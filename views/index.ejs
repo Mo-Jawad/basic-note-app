@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>notes</title>
+  </head>
+  <body>
+    <div class="main min-h-screen px-2 w-full bg-zinc-900">
+      <div class="form w-full max-w-2xl mx-auto "></div>
+        <form class="flex flex-col space-y-4 p-6 rounded-lg " action="/create" method="post">
+          <input
+        type="text"
+        required
+        class="block bg-zinc-700 text-white w-full px-2 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition"
+        name="title"
+        id=""
+        placeholder="Enter title"
+          />
+          <textarea 
+        class="block bg-zinc-700 text-white w-full px-2 py-2 rounded-lg h-24 resize-none focus:outline-none focus:ring-2 focus:ring-green-500 transition" 
+        name="details" 
+        id="" 
+        placeholder="Enter your note here"
+          ></textarea>
+          <input 
+        type="submit" 
+        value="Create Task" 
+        class="bg-green-600 hover:bg-green-600 text-white font-semibold py-2 px-2 rounded-lg transition cursor-pointer"
+          />
+        </form>
+
+        <div class="tasks px-2 w-full">
+        <div class=" flex mt-8">
+          <% if(notes.length > 0) { %>
+          <% notes.forEach((note) => { %>
+          <div class="bg-zinc-800 rounded-lg shadow-lg p-4 mb-4 w-[20%] hover:bg-zinc-600">
+            <h3 class="text-white text-lg font-medium truncate"><%= note.title %></h3>
+            <a class="text-blue-600 text-bold" href="/<%= note.title.split(' ').join("-") %>">Read more..</a>
+          </div>
+          <% }) %>
+          <% } else { %>
+            <div class="text-zinc-500 font-bold text-3xl">no task yet</div>
+          <% } %>
+        </div>
+      </div>
+      </div>
+
+      
+    </div>
+  </body>
+</html>
