@@ -37,8 +37,16 @@ app.get('/', (req, res) => {
 
 app.get('/:filename', (req, res) => {
     fs.readFile(`./files/${req.params.filename.split('-').join('')}.txt`, "utf-8", (err, filedata) => {
-        const noteData = JSON.parse(filedata) 
-         res.render('detailed', {data: [noteData] })
+        try {
+            const noteData = JSON.parse(filedata);
+            if (!noteData) {
+                return res.status(404).send('Note not found');
+            }
+            res.render('detailed', { data: [noteData] });
+        } catch (error) {
+            console.error('Error parsing note data:', error);
+            res.status(500).send('Error parsing note data');
+        }
     })
 } )
 
@@ -53,6 +61,18 @@ app.post('/create', (req, res) => {
         if (err) {
             console.error('Error writing file:', err);
             return res.status(500).send('Error creating file');
+        }
+        res.redirect('/');
+    });
+});
+
+app.get('/:deletedfile/completed', (req, res) => {
+    const filePath = `./files/${req.params.deletedfile.split(' ').join('')}.txt`;
+    
+    fs.unlink(filePath, (err) => {
+        if (err) {
+            console.error('Error deleting file:', err);
+            return res.status(500).send('Error deleting file');
         }
         res.redirect('/');
     });
