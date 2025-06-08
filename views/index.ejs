@@ -27,27 +27,28 @@
           <input 
         type="submit" 
         value="Create Task" 
-        class="bg-green-600 hover:bg-green-600 text-white font-semibold py-2 px-2 rounded-lg transition cursor-pointer"
+        class="bg-green-600 hover:bg-zinc-500 duration-200 text-white font-semibold py-2 px-2 rounded-lg transition cursor-pointer"
           />
         </form>
 
-        <div class="tasks px-2 w-full">
-        <div class=" flex mt-8 gap-4">
+        <div class="tasks flex flex-wrap px-2 w-full">
+        <div class=" mt-8 gap- flex">
           
           <% if(notes.length > 0) { %>
           <% notes.forEach((note) => { %>
             <a href="/<%= note.title.split(' ').join("-") %>">
-          <div class="bg-zinc-800 rounded-lg shadow-lg p-4 mb-4 w-[20%] hover:bg-zinc-700">
-            <h3 class="text-white text-2xl font-bold truncate"><%= note.title %></h3>
-            <a class="text-blue-400 font-medium text-md" href="/<%= note.title.split(' ').join("-") %>">Read more..</a>
-
-            <div class="mt-3 w-full flex">
-              <a class="w-full" href="/<%= note.title.split(' ').join("") %>/completed">
-                <div class="bg-green-700 hover:bg-lime-600 text-white px-4 rounded-md transform hover:scale-105 transition-all duration-200 shadow-lg flex items-center space-x-2 w-full">
-                <span class="text-2xl text-center w-full self-end">✓</span>
+          <div class="bg-zinc-800 rounded-xl shadow-xl mt-4 flex px-6 py-4 w-[230px] mx-4 hover:bg-zinc-700 transition-all duration-300 hover:scale-105">
+            <div class="flex-1">
+              <h3 class="text-white text-2xl font-bold mb-2 truncate"><%= note.title %></h3>
+              <a class="text-blue-400 hover:text-blue-300 font-medium text-sm transition-colors" href="/<%= note.title.split(' ').join("-") %>">Read more →</a>
+            </div>
+            <div class="flex items-center">
+              <a href="/<%= note.title.split(' ').join("") %>/completed">
+                <div class="bg-green-600 hover:bg-lime-600 text-white px-3 py-1 rounded-md transition-all duration-200 shadow-lg">
+                  <span class="text-2xl px-2">✓</span>
                 </div>
-                </a>
-            </div></div>
+              </a>
+            </div>
           </div>
           
             
