@@ -37,16 +37,24 @@
           <% if(notes.length > 0) { %>
           <% notes.forEach((note) => { %>
             <a href="/<%= note.title.split(' ').join("-") %>">
-          <div class="bg-zinc-800 rounded-xl shadow-xl mt-4 flex px-6 py-4 w-[230px] mx-4 hover:bg-zinc-700 transition-all duration-300 hover:scale-105">
-            <div class="flex-1">
+          <div class="bg-zinc-800 rounded-xl shadow-xl mt-4 flex px-6 py-4 w-fit mx-4 hover:bg-zinc-700 transition-all duration-300 hover:scale-105">
+            <div class="flex-1 pr-3">
               <h3 class="text-white text-2xl font-bold mb-2 truncate"><%= note.title %></h3>
               <a class="text-blue-400 hover:text-blue-300 font-medium text-sm transition-colors" href="/<%= note.title.split(' ').join("-") %>">Read more →</a>
             </div>
-            <div class="flex items-center">
-              <a href="/<%= note.title.split(' ').join("") %>/completed">
+            <div class="flex items-center ml-3">
+              <a href="/<%= note.title.split(' ').join("") %>.txt/completed">
                 <div class="bg-green-600 hover:bg-lime-600 text-white px-3 py-1 rounded-md transition-all duration-200 shadow-lg">
                   <span class="text-2xl px-2">✓</span>
+                  
                 </div>
+                
+                <div class="text-center">
+                  
+                    <a href="/edit/<%= note.title.split(' ').join("") %>.txt" class="block bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 ml-2 rounded-md text-md font-medium transition-all duration-200 shadow-lg">Edit</a>
+                    
+                </div>
+                  
               </a>
             </div>
           </div>

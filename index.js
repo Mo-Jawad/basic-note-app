@@ -53,7 +53,7 @@ app.get('/:filename', (req, res) => {
 
 app.post('/create', (req, res) => {
     const note = {
-        title: req.body.title,
+        title: req.body.title.trim(),
         content: req.body.details
     };
     
@@ -67,7 +67,7 @@ app.post('/create', (req, res) => {
 });
 
 app.get('/:deletedfile/completed', (req, res) => {
-    const filePath = `./files/${req.params.deletedfile.split(' ').join('')}.txt`;
+    const filePath = `files/${req.params.deletedfile}`;
     
     fs.unlink(filePath, (err) => {
         if (err) {
@@ -75,6 +75,51 @@ app.get('/:deletedfile/completed', (req, res) => {
             return res.status(500).send('Error deleting file');
         }
         res.redirect('/');
+    });
+});
+
+app.get('/edit/:editedtitle', (req, res) => {
+    res.render('edit', {editTask: req.params.editedtitle.replace(".txt","")});
+})
+
+app.post('/edit/:filename', (req, res) => {
+    const oldFileName = req.params.filename;
+    const oldFilePath = `files/${oldFileName}`;
+    const newTitle = req.body.newTitle;
+    const newFilePath = `files/${newTitle.split(' ').join('')}.txt`;
+
+    // Read the existing file
+    fs.readFile(oldFilePath, 'utf-8', (err, filedata) => {
+        if (err) {
+            console.error('Error reading file:', err);
+            return res.status(500).send('Error reading file');
+        }
+
+        try {
+            // Parse and update the JSON data
+            const noteData = JSON.parse(filedata);
+            noteData.title = newTitle;
+
+            // Write to new file then delete old file
+            fs.writeFile(newFilePath, JSON.stringify(noteData), 'utf-8', (writeErr) => {
+                if (writeErr) {
+                    console.error('Error writing new file:', writeErr);
+                    return res.status(500).send('Error updating file');
+                }
+
+                // Delete the old file after successful write
+                fs.unlink(oldFilePath, (unlinkErr) => {
+                    if (unlinkErr) {
+                        console.error('Error deleting old file:', unlinkErr);
+                        return res.status(500).send('Error removing old file');
+                    }
+                    res.redirect('/');
+                });
+            });
+        } catch (error) {
+            console.error('Error parsing JSON:', error);
+            return res.status(500).send('Error parsing file data');
+        }
     });
 });
 
