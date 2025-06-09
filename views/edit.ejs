@@ -7,6 +7,14 @@
     <title>Document</title>
 </head>
 <body >
+    <div>
+        <a href="/" class="fixed top-4 left-4 bg-orange-600 hover:bg-lime-800 text-white font-bold py-2 px-4 rounded-lg transition duration-200 flex items-center space-x-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+            </svg>
+            <span>Home</span>
+        </a>
+    </div>
     <div class="flex justify-center items-center min-h-screen bg-zinc-800">
         <form class="flex flex-col space-y-6 p-6 rounded-lg w-1/3 bg-zinc-900 shadow-xl" action="/edit/<%= editTask %>.txt" method="POST">
           <input
@@ -18,15 +26,15 @@
             value="<%= editTask.split("-").join(" ") %>"
           />
           <input 
-            class="block bg-zinc-700 text-2xl text-white w-full px-3 py-2 rounded-lg  resize-none focus:outline-none focus:ring-2 focus:ring-green-500 transition" 
+            class="block bg-zinc-700 text-2xl text-white w-full px-3 py-2 rounded-lg  resize-none focus:outline-none focus:bg-zinc-700 font-semibold italic focus:ring-2 focus:ring-green-500 transition" 
             name="newTitle" 
             id="" 
-            placeholder="Enter your note here"
+            placeholder="Enter New Title Here"
           ></input>
           <input 
             type="submit" 
             value="Edit Title" 
-            class="bg-green-600 text-lg hover:bg-lime-800 duration-200 text-white font-semibold py-2 px-3 rounded-lg transition cursor-pointer"
+            class="bg-green-600 font-bold text-lg hover:bg-lime-800 duration-200 text-white py-2 px-3 rounded-lg transition cursor-pointer"
           />
         </form>
     </div>
